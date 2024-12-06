@@ -14,6 +14,7 @@ setup(
         'librosa',
         'wandb',
         'tensorboardX',
+        'einops'
     ],
     # additional metadata about your project
     author='Jaekwon Im',
