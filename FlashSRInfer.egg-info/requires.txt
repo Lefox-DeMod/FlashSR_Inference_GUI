@@ -1,9 +1,0 @@
-numpy
-tqdm
-psutil
-pyyaml
-matplotlib
-librosa
-wandb
-tensorboardX
-einops
