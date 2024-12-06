@@ -1,9 +1,9 @@
-# RMS-ControlNet
-[![arXiv](https://img.shields.io/badge/arXiv-2408.11915-red.svg?style=flat-square)](https://www.arxiv.org/abs/2408.11915) [![githubio](https://img.shields.io/badge/GitHub.io-Audio_Samples-blue?logo=Github&style=flat-square)](https://jnwnlee.github.io/video-foley-demo/)
+# FlashSR: One-step Versatile Audio Super-resolution via Diffusion Distillation
+[![arXiv](https://img.shields.io/badge/arXiv-2408.11915-red.svg?style=flat-square)](https://www.arxiv.org/abs/2408.11915) [![githubio](https://img.shields.io/badge/GitHub.io-Audio_Samples-blue?logo=Github&style=flat-square)](https://jakeoneijk.github.io/flashsr-demo/)
 
-![Figure](./Figure.png)
+![Figure](./Assets/Figure.png)
 
-This is a PyTorch implementation of RMS-ControlNet, a submodule of Video-Foley.
+This is a PyTorch implementation of FlashSR.
 
 If you find this repository helpful, please consider citing it.
 ```bibtex
@@ -17,10 +17,10 @@ If you find this repository helpful, please consider citing it.
 ## Set up
 ### Clone the repository.
 ```
-git clone https://github.com/jakeoneijk/RMS_ControlNet_Inference.git
+git clone git@github.com:jakeoneijk/FlashSR_Inference.git
 ```
 ```
-cd RMS_ControlNet_Inference
+cd FlashSR_Inference
 ```
 
 ### Make conda env (If you don't want to use conda env, you may skip this)
