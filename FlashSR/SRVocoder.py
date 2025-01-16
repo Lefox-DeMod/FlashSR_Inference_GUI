@@ -24,7 +24,6 @@ from FlashSR.BigVGAN.alias_free_torch import *
 LRELU_SLOPE = 0.1
 
 class SRVocoder(torch.nn.Module):
-    # this is our main BigVGAN model. Applies anti-aliased periodic activation for resblocks.
     def __init__(self,
                  num_mels = 256,
                  upsample_initial_channel = 1536,
@@ -211,10 +210,3 @@ class AMPBlock1(torch.nn.Module):
             remove_weight_norm(l)
         for l in self.convs2:
             remove_weight_norm(l)
-
-if __name__ == '__main__':
-    
-    debug = EasyDict(UtilData.json_load('Model/BigVGAN/configs/bigvgan_24khz_100band.json'))
-    
-    big_v_gan = BigVGANMelAudioUpsampler()
-    big_v_gan(torch.randn(4, 19200)) # 0.4 sec 48k hz,  480 hop

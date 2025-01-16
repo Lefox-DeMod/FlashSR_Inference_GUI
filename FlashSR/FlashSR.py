@@ -11,13 +11,15 @@ from FlashSR.VAEWrapper import VAEWrapper
 from FlashSR.SRVocoder import SRVocoder
 
 class FlashSR(DDPM):
-    def __init__(self, 
-                 student_ldm_ckpt_path:str,
-                 sr_vocoder_ckpt_path:str,
-                 autoencoder_ckpt_path:str,
-                 model_output_type:str = 'v_prediction',
-                 beta_schedule_type:str = 'cosine',
-                 **kwargs) -> None:
+    def __init__(
+            self, 
+            student_ldm_ckpt_path:str,
+            sr_vocoder_ckpt_path:str,
+            autoencoder_ckpt_path:str,
+            model_output_type:str = 'v_prediction',
+            beta_schedule_type:str = 'cosine',
+            **kwargs
+        ) -> None:
         
         super().__init__(model = AudioSRUnet(), model_output_type=model_output_type, beta_schedule_type=beta_schedule_type, **kwargs)
         
@@ -34,16 +36,17 @@ class FlashSR(DDPM):
                 lr_audio:torch.Tensor, #[batch, time] ex) [4, 245760]
                 num_steps:int = 1,
                 ) -> torch.Tensor: #[batch, time] ex) [4, 245760]
-        pred_hr_audio = DiffusersWrapper.infer(
-            ddpm_module=self, 
-            diffusers_scheduler_class=DPMSolverMultistepScheduler, 
-            x_shape=None, 
-            cond = lr_audio,
-            num_steps=num_steps,
-            device=lr_audio.device
-        )
-        pred_hr_audio = pred_hr_audio[...,:lr_audio.shape[-1]]
-        return pred_hr_audio
+        with torch.no_grad():
+            pred_hr_audio = DiffusersWrapper.infer(
+                ddpm_module=self, 
+                diffusers_scheduler_class=DPMSolverMultistepScheduler, 
+                x_shape=None, 
+                cond = lr_audio,
+                num_steps=num_steps,
+                device=lr_audio.device
+            )
+            pred_hr_audio = pred_hr_audio[...,:lr_audio.shape[-1]]
+            return pred_hr_audio
     
     def preprocess(self, 
                    x_start:torch.Tensor, # [batch, time]
