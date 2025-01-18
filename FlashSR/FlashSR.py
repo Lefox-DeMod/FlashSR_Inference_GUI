@@ -9,6 +9,8 @@ from TorchJaekwon.Model.Diffusion.External.diffusers.DiffusersWrapper import Dif
 from FlashSR.AudioSR.AudioSRUnet import AudioSRUnet
 from FlashSR.VAEWrapper import VAEWrapper
 from FlashSR.SRVocoder import SRVocoder
+from FlashSR.Util.UtilAudioSR import UtilAudioSR
+from FlashSR.Util.UtilAudioLowPassFilter import UtilAudioLowPassFilter
 
 class FlashSR(DDPM):
     def __init__(
@@ -35,7 +37,18 @@ class FlashSR(DDPM):
     def forward(self, 
                 lr_audio:torch.Tensor, #[batch, time] ex) [4, 245760]
                 num_steps:int = 1,
+                lowpass_input:bool = True,
+                lowpass_cutoff_freq:int = None
                 ) -> torch.Tensor: #[batch, time] ex) [4, 245760]
+        
+        if lowpass_input:
+            device = lr_audio.device
+            if lowpass_cutoff_freq is None:
+                lowpass_cutoff_freq:int = UtilAudioSR.find_cutoff_freq(lr_audio)
+            lr_audio = lr_audio.cpu().numpy()
+            lr_audio = UtilAudioLowPassFilter.lowpass(lr_audio, 48000, filter_name='cheby', filter_order=8, cutoff_freq=lowpass_cutoff_freq)
+            lr_audio = torch.from_numpy(lr_audio).to(device)
+
         with torch.no_grad():
             pred_hr_audio = DiffusersWrapper.infer(
                 ddpm_module=self, 
