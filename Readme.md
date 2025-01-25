@@ -78,4 +78,5 @@ UtilAudio.write('./output.wav', pred_hr_audio, 48000)
 
 ## References
 - [AudioSR](https://github.com/haoheliu/versatile_audio_super_resolution)
+- [NVSR](https://github.com/haoheliu/ssr_eval)
 - [BigVGAN](https://github.com/NVIDIA/BigVGAN)
