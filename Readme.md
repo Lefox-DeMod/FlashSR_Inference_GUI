@@ -1,5 +1,5 @@
 # FlashSR: One-step Versatile Audio Super-resolution via Diffusion Distillation
-[![arXiv](https://img.shields.io/badge/arXiv-2408.11915-red.svg?style=flat-square)](https://arxiv.org/abs/2501.10807) [![githubio](https://img.shields.io/badge/GitHub.io-Audio_Samples-blue?logo=Github&style=flat-square)](https://jakeoneijk.github.io/flashsr-demo/)
+[![arXiv](https://img.shields.io/badge/arXiv-2501.10807-red.svg?style=flat-square)](https://arxiv.org/abs/2501.10807) [![githubio](https://img.shields.io/badge/GitHub.io-Audio_Samples-blue?logo=Github&style=flat-square)](https://jakeoneijk.github.io/flashsr-demo/)
 
 ![Figure](./Assets/Figure.png)
 
