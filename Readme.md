@@ -1,5 +1,5 @@
 # FlashSR: One-step Versatile Audio Super-resolution via Diffusion Distillation
-[![arXiv](https://img.shields.io/badge/arXiv-2408.11915-red.svg?style=flat-square)](https://www.arxiv.org/abs/2408.11915) [![githubio](https://img.shields.io/badge/GitHub.io-Audio_Samples-blue?logo=Github&style=flat-square)](https://jakeoneijk.github.io/flashsr-demo/)
+[![arXiv](https://img.shields.io/badge/arXiv-2408.11915-red.svg?style=flat-square)](https://arxiv.org/abs/2501.10807) [![githubio](https://img.shields.io/badge/GitHub.io-Audio_Samples-blue?logo=Github&style=flat-square)](https://jakeoneijk.github.io/flashsr-demo/)
 
 ![Figure](./Assets/Figure.png)
 
@@ -7,11 +7,11 @@ This is a PyTorch implementation of FlashSR.
 
 If you find this repository helpful, please consider citing it.
 ```bibtex
-@article{lee2024video,
-  title={Video-Foley: Two-Stage Video-To-Sound Generation via Temporal Event Condition For Foley Sound},
-  author={Lee, Junwon and Im, Jaekwon and Kim, Dabin and Nam, Juhan},
-  journal={arXiv preprint arXiv:2408.11915},
-  year={2024}
+@article{im2025flashsr,
+  title={FlashSR: One-step Versatile Audio Super-resolution via Diffusion Distillation},
+  author={Im, Jaekwon and Nam, Juhan},
+  journal={arXiv preprint arXiv:2501.10807},
+  year={2025}
 }
 ```
 ## Set up
@@ -28,7 +28,7 @@ cd FlashSR_Inference
 source ./Script/0_conda_env_setup.sh
 ```
 
-### Install pytorch and pytorch lightning. You should check your CUDA Version and install compatible version.
+### Install pytorch. You should check your CUDA Version and install compatible version.
 ```
 source ./Script/1_pytorch_install.sh
 ```
@@ -40,54 +40,42 @@ source ./Script/2_setup.sh
 
 ### Download pretrained weights. 
 
-[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/datasets/jakeoneijk/RMS_ControlNet_weights/tree/main)
+[![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/datasets/jakeoneijk/FlashSR_weights/tree/main)
 
 ## Use
-### Please check Test.py
+### Please check Example.py
 
-You can import the module from anywhere
+After installation, you can import the module from anywhere
 ```python
-from AudioLDMControlNetInfer.AudioLDMControlNet import AudioLDMControlNet
+from FlashSR.FlashSR import FlashSR
 
-pretrained_path:str = './ControlNetstep300000.pth' #path of weights you downloaded from Hugging Face
-
-audio_ldm_controlnet = AudioLDMControlNet(
-    control_net_pretrained_path = pretrained_path,
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-)
+student_ldm_ckpt_path:str = './ModelWeights/student_ldm.pth'
+sr_vocoder_ckpt_path:str = './ModelWeights/sr_vocoder.pth'
+vae_ckpt_path:str = './ModelWeights/vae.pth'
+flashsr = FlashSR( student_ldm_ckpt_path, sr_vocoder_ckpt_path, vae_ckpt_path)
 ```
 
-Read the audio file for RMS reference and extract the RMS values
+Read the low-resolution audio
 ```python
-from Util.RMS import RMS
+audio_path:str = './Assets/ExampleInput/music.wav'
 
-rms_ref_audio_path:str = './Examples/rms_ref.wav'
-sample_rate:int = 16000
-duration_sec:float = 10.24
+# resample audio to 48kHz
+# audio.shape = [channel_size, time] ex) [2, 245760]
+audio, sr = UtilAudio.read(audio_path, sample_rate = 48000)
 
-rms_ref_audio:torch.Tensor = load_audio(rms_ref_audio_path)
-rms:torch.Tensor = torch.from_numpy(RMS.get_rms_fit_to_audio_ldm_mel(audio=rms_ref_audio))
+# currently, the model only supports 245760 samples (5.12 seconds of audio)
+audio = UtilData.fix_length(audio, 245760)
+audio = audio.to(device)
 ```
 
-You can generate audio conditioned on both RMS and text prompts
+Restore high-frequency components by FlashSR
 ```python
-generated_audio_by_text:np.ndarray = audio_ldm_controlnet.generate(
-    text_prompt='dog bark loud',
-    rms=rms
-)
+# lowpass_input: if True, apply lowpass filter to input audio before super resolution. This can help reduce discrepancy between training data and inference data.
+pred_hr_audio = flashsr(audio, lowpass_input = False)
+UtilAudio.write('./output.wav', pred_hr_audio, 48000)
 ```
 
-You can also use audio prompts to condition the timbre
-```
-timb_ref_audio = load_audio('./Examples/timb_ref(footstep).mp3')
-generated_audio_by_waveform:np.ndarray = audio_ldm_controlnet.generate(
-    waveform=timb_ref_audio,
-    rms=rms
-)
-```
 
 ## References
-- [AudioLDM](https://github.com/haoheliu/AudioLDM-training-finetuning)(provided by the authors: please follow the CC-BY-NC-SA 4.0 license)
-    - AudioLDM-s: [```audioldm-s-full.ckpt```](https://zenodo.org/records/7600541/files/audioldm-s-full)
-    - Others (CLAP, VAE, HifiGAN): [```checkpoints.tar```](https://drive.google.com/file/d/1T6EnuAHIc8ioeZ9kB1OZ_WGgwXAVGOZS/view?usp=drive_link)
-- [ControlNet](https://github.com/lllyasviel/ControlNet)
+- [AudioSR](https://github.com/haoheliu/versatile_audio_super_resolution)
+- [BigVGAN](https://github.com/NVIDIA/BigVGAN)
