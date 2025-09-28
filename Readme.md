@@ -17,7 +17,7 @@ If you find this repository helpful, please consider citing it.
 ## Set up
 ### Clone the repository.
 ```
-git clone git@github.com:jakeoneijk/FlashSR_Inference.git
+git clone git@github.com:Lefox-DeMod/FlashSR_Inference_GUI.git
 ```
 ```
 cd FlashSR_Inference
@@ -31,6 +31,11 @@ source ./Script/0_conda_env_setup.sh
 ### Install pytorch. You should check your CUDA Version and install compatible version.
 ```
 source ./Script/1_pytorch_install.sh
+```
+### CPU manual install pytorch.
+If need use CPU installation only:
+```
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 ```
 
 ### Setup this repository
@@ -48,6 +53,7 @@ Run GUI:
 ```
 python simple_gui.py
 ```
+It will run on CUDA, or CPU if using manual install.
 
 ### Please check Example.py
 
