@@ -1,9 +1,9 @@
-# FlashSR: One-step Versatile Audio Super-resolution via Diffusion Distillation
+# FlashSR: Simple GUI on Tkinter
 [![arXiv](https://img.shields.io/badge/arXiv-2501.10807-red.svg?style=flat-square)](https://arxiv.org/abs/2501.10807) [![githubio](https://img.shields.io/badge/GitHub.io-Audio_Samples-blue?logo=Github&style=flat-square)](https://jakeoneijk.github.io/flashsr-demo/)
 
 ![Figure](./Assets/Figure.png)
 
-This is a PyTorch implementation of FlashSR.
+This is a GUI Tkinter of FlashSR.
 
 If you find this repository helpful, please consider citing it.
 ```bibtex
@@ -43,6 +43,12 @@ source ./Script/2_setup.sh
 [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/datasets/jakeoneijk/FlashSR_weights/tree/main)
 
 ## Use
+
+Run GUI:
+```
+python simple_gui.py
+```
+
 ### Please check Example.py
 
 After installation, you can import the module from anywhere
