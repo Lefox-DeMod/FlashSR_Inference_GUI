@@ -17,7 +17,7 @@ If you find this repository helpful, please consider citing it.
 ## Set up
 ### Clone the repository.
 ```
-git clone git@github.com:Lefox-DeMod/FlashSR_Inference_GUI.git
+git clone github.com/Lefox-DeMod/FlashSR_Inference_GUI
 ```
 ```
 cd FlashSR_Inference
