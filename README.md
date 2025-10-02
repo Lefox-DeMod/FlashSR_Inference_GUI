@@ -48,7 +48,7 @@ source venv\Scripts\activate.bat
 ### CPU install pytorch.
 If need use CPU installation only:
 ```
-pip intstall -r requirements_cpu.txt
+pip install -r requirements_cpu.txt
 ```
 
 ### GPU (CUDA) install
@@ -58,11 +58,13 @@ pip install -r requirements.txt
 ```
 
 ### Setup this repository and install all requirements
+Unix-like
 ```
-TORCH_JAEKWON_PATH='./TorchJaekwon'
-
-pip install -e ./
-
+TORCH_JAEKWON_PATH='./TorchJaekwon' pip install -e ./
+```
+Windows:
+```
+TORCH_JAEKWON_PATH='.TorchJaekwon' pip install -e .
 ```
 
 ### Download pretrained weights. 
