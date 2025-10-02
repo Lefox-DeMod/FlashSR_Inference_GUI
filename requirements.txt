@@ -1,0 +1,12 @@
+#=== GUI ===#
+CTkToolTip
+customtkinter
+tkinter
+
+#=== Backend ===#
+librosa
+numpy
+soundfile
+torch
+torchvision
+torchaudio
