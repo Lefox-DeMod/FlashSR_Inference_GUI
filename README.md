@@ -1,9 +1,9 @@
 # FlashSR: Simple GUI on Tkinter
 [![arXiv](https://img.shields.io/badge/arXiv-2501.10807-red.svg?style=flat-square)](https://arxiv.org/abs/2501.10807) [![githubio](https://img.shields.io/badge/GitHub.io-Audio_Samples-blue?logo=Github&style=flat-square)](https://jakeoneijk.github.io/flashsr-demo/)
 
-![Figure](./Assets/Figure.png)
+![Figure](./Assets/About.png)
 
-This is a GUI Tkinter of FlashSR.
+This is CustomTkinter GUI for FlashSR.
 
 If you find this repository helpful, please consider citing it.
 ```bibtex
@@ -14,6 +14,15 @@ If you find this repository helpful, please consider citing it.
   year={2025}
 }
 ```
+### Features:
+One or batch Processing audio, selection of 48k/44k sample rate, settings for Overlap selection, Lowpass input, Force Sample rate for audio.
+
+![Figure](./Assets/Processing.png)
+
+Simple Log for debuging and processing.
+
+![Figure](./Assets/log.png)
+
 ## Set up
 ### Clone the repository.
 ```
@@ -23,30 +32,44 @@ git clone github.com/Lefox-DeMod/FlashSR_Inference_GUI
 cd FlashSR_Inference
 ```
 
-### Make conda env (If you don't want to use conda env, you may skip this)
+### Manual install
 ```
-source ./Script/0_conda_env_setup.sh
+python -m venv venv
 ```
 
-### Install pytorch. You should check your CUDA Version and install compatible version.
+### Activate virtual enviroment
 ```
-source ./Script/1_pytorch_install.sh
+source venv/bin/activate
 ```
-### CPU manual install pytorch.
+if using Windows CMD:
+```
+source venv\Scripts\activate.bat
+```
+### CPU install pytorch.
 If need use CPU installation only:
 ```
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+pip intstall -r requirements_cpu.txt
 ```
 
-### Setup this repository
+### GPU (CUDA) install
+If GPU avalaible:
 ```
-source ./Script/2_setup.sh
+pip install -r requirements.txt
+```
+
+### Setup this repository and install all requirements
+```
+TORCH_JAEKWON_PATH='./TorchJaekwon'
+
+pip install -e ./
+
 ```
 
 ### Download pretrained weights. 
 
 [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/datasets/jakeoneijk/FlashSR_weights/tree/main)
 
+Put downloaded model in `./ModelWeights` folder.
 ## Use
 
 Run GUI:
