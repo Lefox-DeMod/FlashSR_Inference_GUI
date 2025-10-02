@@ -1,7 +1,6 @@
 # === GUI ===
 CTkToolTip
 customtkinter
-tkinter
 
 # === Backend ===
 librosa
