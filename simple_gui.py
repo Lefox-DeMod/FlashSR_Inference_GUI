@@ -28,7 +28,7 @@ class FlashSRGUI(ctk.CTk):
         self.title("FlashSR GUI")
 
         try:
-            icon_img = Image.open(os.path.join("Assets/logo.png"))
+            icon_img = Image.open(os.path.join("Assets/logo.ico"))
             self.icon_ref = ImageTk.PhotoImage(icon_img)
             self.iconphoto(False, self.icon_ref)
         except Exception as e:
