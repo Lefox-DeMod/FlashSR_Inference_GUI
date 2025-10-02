@@ -7,6 +7,9 @@ tkinter
 librosa
 numpy
 soundfile
+
+# GPU Package
+--extra-index-url https://download.pytorch.org/whl/cu118
 torch
 torchvision
 torchaudio
