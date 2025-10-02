@@ -1,0 +1,15 @@
+# === GUI ===
+CTkToolTip
+customtkinter
+tkinter
+
+# === Backend ===
+librosa
+numpy
+soundfile
+
+# CPU Pacage
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchvision
+torchaudio
